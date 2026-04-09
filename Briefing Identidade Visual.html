@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing · Identidade Visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --surface2: #F0EDE6;
+    --ink: #1A1814;
+    --ink2: #5A5650;
+    --ink3: #9A958E;
+    --accent: #C4531A;
+    --accent-light: #F5E8DF;
+    --accent2: #2B4A6B;
+    --border: rgba(26,24,20,0.10);
+    --border2: rgba(26,24,20,0.18);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 16px rgba(26,24,20,0.08);
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ─────────────────────────────────── */
+  .site-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--accent); }
+  .header-meta {
+    font-size: 13px;
+    color: var(--ink3);
+  }
+
+  /* ── PROGRESS BAR ────────────────────────────── */
+  .progress-wrap {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+  .progress-steps {
+    display: flex;
+    gap: 0;
+    max-width: 860px;
+    margin: 0 auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .progress-steps::-webkit-scrollbar { display: none; }
+  .step-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink3);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: var(--transition);
+    user-select: none;
+    flex-shrink: 0;
+  }
+  .step-tab .num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--surface2);
+    color: var(--ink3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    transition: var(--transition);
+    flex-shrink: 0;
+  }
+  .step-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .step-tab.active .num {
+    background: var(--accent);
+    color: #fff;
+  }
+  .step-tab.done .num {
+    background: #2D7A4F;
+    color: transparent; /* Changed from font-size: 0 for better accessibility/compatibility */
+    position: relative;
+  }
+  .step-tab.done .num::after { 
+    content: '✓'; 
+    font-size: 11px; 
+    color: #fff;
+    position: absolute;
+  }
+  .step-tab.done { color: var(--ink2); }
+
+  /* ── MAIN LAYOUT ─────────────────────────────── */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+  }
+
+  /* ── SECTION HEADER ──────────────────────────── */
+  .section-intro {
+    margin-bottom: 2.5rem;
+  }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .section-desc {
+    font-size: 15px;
+    color: var(--ink2);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  /* ── QUESTION CARD ───────────────────────────── */
+  .q-group {
+    margin-bottom: 2rem;
+  }
+  .q-group-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .q-group-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 12px;
+    transition: box-shadow var(--transition);
+  }
+  .q-card:focus-within {
+    box-shadow: 0 0 0 3px rgba(196,83,26,0.12);
+    border-color: rgba(196,83,26,0.35);
+  }
+
+  .q-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+  .q-hint {
+    font-size: 12px;
+    color: var(--ink3);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  input[type="text"],
+  input[type="url"],
+  textarea,
+  select {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 10px 13px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: var(--transition);
+    resize: vertical;
+  }
+  input[type="text"]:focus,
+  input[type="url"]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: rgba(196,83,26,0.5);
+    background: #FEFEFE;
+  }
+  textarea { min-height: 90px; }
+
+  /* ── CHIP SELECTOR ───────────────────────────── */
+  .chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border2);
+    background: var(--bg);
+    font-size: 13px;
+    color: var(--ink2);
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .chip.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* ── SCALE SELECTOR ──────────────────────────── */
+  .scale-wrap {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--ink3);
+    margin-top: 6px;
+  }
+  .scale-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border2);
+    background: var(--bg);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink3);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .scale-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .scale-btn.selected { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* ── POLAR PAIR ──────────────────────────────── */
+  .polar-pair {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .polar-label {
+    font-size: 13px;
+    color: var(--ink2);
+    width: 110px;
+    flex-shrink: 0;
+  }
+  .polar-label.right { text-align: right; }
+  .polar-slider {
+    flex: 1;
+    accent-color: var(--accent);
+  }
+
+  /* ── FILE UPLOAD AREA ────────────────────────── */
+  .upload-area {
+    border: 2px dashed var(--border2);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--surface);
+  }
+  .upload-area:hover, .upload-area.dragover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+  .upload-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+  .upload-text {
+    font-size: 15px;
+    color: var(--ink2);
+    margin-bottom: 6px;
+  }
+  .upload-sub {
+    font-size: 12px;
+    color: var(--ink3);
+  }
+  #file-input { display: none; }
+
+  .file-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .file-thumb {
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    position: relative;
+    background: var(--surface2);
+  }
+  .file-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .file-thumb .remove-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(26,24,20,0.7);
+    color: #fff;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: var(--transition);
+  }
+  .file-thumb:hover .remove-btn { opacity: 1; }
+  .file-doc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    margin-top: 8px;
+  }
+  .file-doc-icon { font-size: 20px; flex-shrink: 0; }
+  .file-doc-name { font-size: 13px; color: var(--ink2); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .file-doc-remove { font-size: 12px; color: var(--ink3); cursor: pointer; flex-shrink: 0; }
+  .file-doc-remove:hover { color: var(--accent); }
+
+  /* ── NAV BUTTONS ─────────────────────────────── */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    padding: 11px 24px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid transparent;
+  }
+  .btn-ghost {
+    background: transparent;
+    border-color: var(--border2);
+    color: var(--ink2);
+  }
+  .btn-ghost:hover { border-color: var(--ink2); color: var(--ink); }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .btn-primary:hover { background: #B84810; } /* Corrigido: Removido o bg redundante */
+  .btn-secondary {
+    background: var(--accent2);
+    color: #fff;
+    border-color: var(--accent2);
+  }
+
+  /* ── STEP SECTIONS ───────────────────────────── */
+  .step-section { display: none; }
+  .step-section.active { display: block; }
+
+  /* ── SUMMARY PAGE ────────────────────────────── */
+  .summary-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 12px;
+  }
+  .summary-block h4 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: var(--ink);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .summary-row {
+    display: flex;
+    gap: 12px;
+    padding: 5px 0;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-key {
+    color: var(--ink3);
+    width: 180px;
+    flex-shrink: 0;
+  }
+  .summary-val { color: var(--ink); flex: 1; }
+
+  .export-banner {
+    background: linear-gradient(135deg, var(--accent2) 0%, #1A3450 100%);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    color: #fff;
+    margin-top: 2rem;
+  }
+  .export-banner h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  .export-banner p {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 20px;
+  }
+  .export-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-export {
+    padding: 10px 22px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+  }
+  .btn-export-white { background: #fff; color: var(--accent2); }
+  .btn-export-outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.4); }
+  .btn-export-outline:hover { background: rgba(255,255,255,0.1); }
+
+  /* ── COLOR PICKER ROW ────────────────────────── */
+  .color-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .color-swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+  }
+  .color-swatch.selected { border-color: var(--ink); }
+  .color-swatch.none-swatch {
+    background: var(--bg);
+    border: 2px dashed var(--border2);
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink3);
+  }
+
+  /* ── MISC ────────────────────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+  .tip-box {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .required-star { color: var(--accent); margin-left: 2px; }
+
+  .char-count {
+    font-size: 11px;
+    color: var(--ink3);
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  /* Animate section in */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .step-section.active { animation: fadeUp 0.3s ease; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">Briefing<span>.</span></div>
+  <div class="header-meta" id="header-progress">Etapa 1 de 7</div>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-steps" id="progress-steps">
+    <div class="step-tab active" data-step="0"><span class="num">1</span>Contexto</div>
+    <div class="step-tab" data-step="1"><span class="num">2</span>Negócio</div>
+    <div class="step-tab" data-step="2"><span class="num">3</span>Posicionamento</div>
+    <div class="step-tab" data-step="3"><span class="num">4</span>Público</div>
+    <div class="step-tab" data-step="4"><span class="num">5</span>Estética</div>
+    <div class="step-tab" data-step="5"><span class="num">6</span>Referências</div>
+    <div class="step-tab" data-step="6"><span class="num">7</span>Resumo</div>
+  </div>
+</div>
+
+<main class="main">
+
+  <div class="step-section active" id="step-0">
+    <div class="section-intro">
+      <div class="section-tag">Etapa 1 · Contexto</div>
+      <h1 class="section-title">Quem é você?</h1>
+      <p class="section-desc">Vamos começar pelo básico. Essas informações formam a espinha dorsal do briefing.</p>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Identificação</div>
+
+      <div class="two-col">
+        <div class="q-card">
+          <div class="q-label">Nome completo ou razão social <span class="required-star">*</span></div>
+          <input type="text" id="nome" placeholder="Ex: Studio Arquitetura Ltda." />
+        </div>
+        <div class="q-card">
+          <div class="q-label">Nome fantasia / marca</div>
+          <input type="text" id="fantasia" placeholder="Ex: Studio A" />
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Segmento / área de atuação <span class="required-star">*</span></div>
+        <div class="q-hint">Ex: arquitetura, saúde, moda, tecnologia, gastronomia…</div>
+        <input type="text" id="segmento" placeholder="Descreva o segmento" />
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Há quanto tempo existe este negócio?</div>
+        <div class="chip-grid" id="chips-tempo">
+          <div class="chip" data-group="tempo">Ainda não existe (estou abrindo)</div>
+          <div class="chip" data-group="tempo">Menos de 1 ano</div>
+          <div class="chip" data-group="tempo">1 a 3 anos</div>
+          <div class="chip" data-group="tempo">3 a 10 anos</div>
+          <div class="chip" data-group="tempo">Mais de 10 anos</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Qual o tamanho atual da empresa?</div>
+        <div class="chip-grid" id="chips-tamanho">
+          <div class="chip" data-group="tamanho">Somente eu (solo)</div>
+          <div class="chip" data-group="tamanho">2 a 5 pessoas</div>
+          <div class="chip" data-group="tamanho">6 a 20 pessoas</div>
+          <div class="chip" data-group="tamanho">20 a 100 pessoas</div>
+          <div class="chip" data-group="tamanho">Mais de 100 pessoas</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Motivação do projeto</div>
+
+      <div class="q-card">
+        <div class="q-label">Por que você quer uma identidade visual agora? <span class="required-star">*</span></div>
+        <div class="chip-grid" id="chips-motivo">
+          <div class="chip" data-group="motivo">Nunca tive — estou começando do zero</div>
+          <div class="chip" data-group="motivo">Minha marca está desatualizada</div>
+          <div class="chip" data-group="motivo">Passei por repositionamento</div>
+          <div class="chip" data-group="motivo">Fusão, aquisição ou mudança de nome</div>
+          <div class="chip" data-group="motivo">Vou expandir para novos mercados</div>
+          <div class="chip" data-group="motivo">A marca não reflete mais o que entrego</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">O que o projeto de identidade precisa entregar? (marque tudo que se aplica)</div>
+        <div class="chip-grid" id="chips-entrega">
+          <div class="chip" data-group="entrega" data-multi>Logotipo / símbolo</div>
+          <div class="chip" data-group="entrega" data-multi>Paleta de cores</div>
+          <div class="chip" data-group="entrega" data-multi>Tipografia</div>
+          <div class="chip" data-group="entrega" data-multi>Papelaria (cartão, papel timbrado)</div>
+          <div class="chip" data-group="entrega" data-multi>Manual de marca</div>
+          <div class="chip" data-group="entrega" data-multi>Templates de redes sociais</div>
+          <div class="chip" data-group="entrega" data-multi>Embalagem / rótulo</div>
+          <div class="chip" data-group="entrega" data-multi>Sinalização / fachada</div>
+          <div class="chip" data-group="entrega" data-multi>Apresentações corporativas</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Existe prazo definido para este projeto?</div>
+        <div class="two-col">
+          <select id="prazo">
+            <option value="">— Selecionar —</option>
+            <option>Sem prazo definido</option>
+            <option>Até 2 semanas</option>
+            <option>Até 1 mês</option>
+            <option>1 a 3 meses</option>
+            <option>Mais de 3 meses</option>
+          </select>
+          <input type="text" id="prazo-obs" placeholder="Observações sobre o prazo (opcional)" />
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <span></span>
+      <button class="btn btn-primary" onclick="goTo(1)">Próximo →</button>
+    </div>
+  </div>
+
+  <div class="step-section" id="step-1">
+    <div class="section-intro">
+      <div class="section-tag">Etapa 2 · Negócio</div>
+      <h1 class="section-title">O que você faz e como faz?</h1>
+      <p class="section-desc">Entender o negócio é entender o que a marca precisa comunicar.</p>
+    </div>
+
+    <div class="tip-box">💡 Responda como se estivesse explicando para alguém de fora do seu setor. Quanto mais detalhe, melhor o resultado.</div>
+
+    <div class="q-group">
+      <div class="q-group-label">Essência do negócio</div>
+
+      <div class="q-card">
+        <div class="q-label">Em uma frase, o que você entrega para seus clientes? <span class="required-star">*</span></div>
+        <div class="q-hint">Tente responder no formato: "Ajudo [quem] a [atingir o quê] por meio de [como]."</div>
+        <textarea id="essencia" placeholder="Ex: Ajudo arquitetos independentes a ganhar autoridade digital por meio de conteúdo estratégico…"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Qual é o principal produto ou serviço que gera receita?</div>
+        <textarea id="principal-produto" style="min-height:70px" placeholder="Descreva o carro-chefe do seu negócio…"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Qual é o processo / método que você usa para entregar resultado?</div>
+        <div class="q-hint">Etapas, rituais, diferenciais operacionais. O que acontece desde a contratação até o resultado final?</div>
+        <textarea id="processo" placeholder="Descreva o passo a passo…"></textarea>
+      </div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Concorrência e mercado</div>
+
+      <div class="q-card">
+        <div class="q-label">Cite 2 a 5 concorrentes diretos (ou marcas que disputam o mesmo cliente)</div>
+        <textarea id="concorrentes" style="min-height:70px" placeholder="Nome, site ou redes sociais…"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">O que você faz diferente ou melhor do que eles?</div>
+        <div class="q-hint">Não seja modesto. Isso é o que a identidade visual vai amplificar.</div>
+        <textarea id="diferencial" placeholder="Liste seus diferenciais reais…"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Há alguma marca (dentro ou fora do seu setor) que você admira? Por quê?</div>
+        <div class="q-hint">Não precisa ser referência direta — pode ser um posicionamento, uma atitude de marca.</div>
+        <textarea id="admira" style="min-height:70px" placeholder="Ex: Admiro a Apple pela simplicidade que comunica sofisticação…"></textarea>
+      </div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Contexto de uso da marca</div>
+
+      <div class="q-card">
+        <div class="q-label">Em quais canais / suportes a identidade vai ser usada? (marque todos)</div>
+        <div class="chip-grid" id="chips-canais">
+          <div class="chip" data-group="canais" data-multi>Instagram / TikTok</div>
+          <div class="chip" data-group="canais" data-multi>LinkedIn</div>
+          <div class="chip" data-group="canais" data-multi>Website</div>
+          <div class="chip" data-group="canais" data-multi>WhatsApp / grupos</div>
+          <div class="chip" data-group="canais" data-multi>E-mail marketing</div>
+          <div class="chip" data-group="canais" data-multi>Cartão de visita</div>
+          <div class="chip" data-group="canais" data-multi>Uniforme / etiqueta</div>
+          <div class="chip" data-group="canais" data-multi>Embalagem</div>
+          <div class="chip" data-group="canais" data-multi>Outdoor / fachada</div>
+          <div class="chip" data-group="canais" data-multi>Apresentações / pitch</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(0)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(2)">Próximo →</button>
+    </div>
+  </div>
+
+  <div class="step-section" id="step-2">
+    <div class="section-intro">
+      <div class="section-tag">Etapa 3 · Posicionamento</div>
+      <h1 class="section-title">Onde você quer estar?</h1>
+      <p class="section-desc">Posicionamento é a promessa que a marca carrega. Vamos mapeá-la com precisão.</p>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Propósito e valores</div>
+
+      <div class="q-card">
+        <div class="q-label">Por que este negócio existe além do lucro? <span class="required-star">*</span></div>
+        <div class="q-hint">Propósito não é missão corporativa. É a resposta honesta para "por que isso importa?"</div>
+        <textarea id="proposito" placeholder="O que move você além do resultado financeiro?"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Quais são os 3 a 5 valores inegociáveis da sua marca?</div>
+        <div class="chip-grid" id="chips-valores">
+          <div class="chip" data-group="valores" data-multi>Transparência</div>
+          <div class="chip" data-group="valores" data-multi>Inovação</div>
+          <div class="chip" data-group="valores" data-multi>Excelência técnica</div>
+          <div class="chip" data-group="valores" data-multi>Acolhimento</div>
+          <div class="chip" data-group="valores" data-multi>Sustentabilidade</div>
+          <div class="chip" data-group="valores" data-multi>Resultado</div>
+          <div class="chip" data-group="valores" data-multi>Tradição</div>
+          <div class="chip" data-group="valores" data-multi>Ousadia</div>
+          <div class="chip" data-group="valores" data-multi>Simplicidade</div>
+          <div class="chip" data-group="valores" data-multi>Comunidade</div>
+          <div class="chip" data-group="valores" data-multi>Autonomia</div>
+          <div class="chip" data-group="valores" data-multi>Rigor</div>
+        </div>
+        <div style="margin-top:10px">
+          <input type="text" id="valores-outros" placeholder="Outros valores (separe por vírgula)…" />
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Se a sua marca fosse uma pessoa, como ela seria?</div>
+        <div class="q-hint">Pense em personalidade, jeito de se comunicar, estilo de vida, postura.</div>
+        <textarea id="persona-marca" placeholder="Ex: Uma mulher de 40 anos, direta, elegante, que usa frases curtas e nunca promete o que não pode cumprir…"></textarea>
+      </div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Tom e personalidade</div>
+
+      <div class="q-card">
+        <div class="q-label">Como sua marca se comunica? (marque todos que fazem sentido)</div>
+        <div class="chip-grid" id="chips-tom">
+          <div class="chip" data-group="tom" data-multi>Formal e técnica</div>
+          <div class="chip" data-group="tom" data-multi>Próxima e descontraída</div>
+          <div class="chip" data-group="tom" data-multi>Inspiradora e motivacional</div>
+          <div class="chip" data-group="tom" data-multi>Educativa e instrutiva</div>
+          <div class="chip" data-group="tom" data-multi>Provocadora e questionadora</div>
+          <div class="chip" data-group="tom" data-multi>Séria e institucional</div>
+          <div class="chip" data-group="tom" data-multi>Bem-humorada e leve</div>
+          <div class="chip" data-group="tom" data-multi>Premium e exclusiva</div>
+          <div class="chip" data-group="tom" data-multi>Acolhedora e empática</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Ajuste os eixos de personalidade da marca</div>
+        <div class="q-hint">Arraste o controle para onde sua marca se posiciona naturalmente.</div>
+        <div style="margin-top:8px">
+          <div class="polar-pair">
+            <div class="polar-label">Tradicional</div>
+            <input type="range" class="polar-slider" min="0" max="100" value="50" id="polar-trad" />
+            <div class="polar-label right">Inovadora</div>
+          </div>
+          <div class="polar-pair">
+            <div class="polar-label">Séria</div>
+            <input type="range" class="polar-slider" min="0" max="100" value="50" id="polar-seria" />
+            <div class="polar-label right">Divertida</div>
+          </div>
+          <div class="polar-pair">
+            <div class="polar-label">Acessível</div>
+            <input type="range" class="polar-slider" min="0" max="100" value="50" id="polar-preco" />
+            <div class="polar-label right">Premium</div>
+          </div>
+          <div class="polar-pair">
+            <div class="polar-label">Minimalista</div>
+            <input type="range" class="polar-slider" min="0" max="100" value="50" id="polar-visual" />
+            <div class="polar-label right">Expressiva</div>
+          </div>
+          <div class="polar-pair">
+            <div class="polar-label">Local / regional</div>
+            <input type="range" class="polar-slider" min="0" max="100" value="50" id="polar-escala" />
+            <div class="polar-label right">Global</div>
+          </div>
+          <div class="polar-pair">
+            <div class="polar-label">Racional</div>
+            <input type="range" class="polar-slider" min="0" max="100" value="50" id="polar-emocao" />
+            <div class="polar-label right">Emocional</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Existe algo que sua marca NUNCA deve parecer ou comunicar?</div>
+        <div class="q-hint">Restrições são tão importantes quanto diretrizes. "Nunca deve parecer barato, descuidado, agressivo…"</div>
+        <textarea id="nunca" style="min-height:70px" placeholder="Descreva o que deve ser evitado…"></textarea>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(1)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(3)">Próximo →</button>
+    </div>
+  </div>
+
+  <div class="step-section" id="step-3">
+    <div class="section-intro">
+      <div class="section-tag">Etapa 4 · Público</div>
+      <h1 class="section-title">Para quem você fala?</h1>
+      <p class="section-desc">Entender quem recebe a marca é entender que linguagem ela deve usar.</p>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Perfil do cliente ideal</div>
+
+      <div class="q-card">
+        <div class="q-label">Descreva o seu cliente ideal em detalhe <span class="required-star">*</span></div>
+        <div class="q-hint">Idade, gênero, profissão, renda estimada, estilo de vida, onde mora, o que consome.</div>
+        <textarea id="cliente-ideal" placeholder="Ex: Mulher, 28 a 42 anos, moradora de capital, profissional liberal ou empresária, preocupada com saúde mas sem tempo…"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Qual é o maior problema / dor que esse cliente tem — que você resolve?</div>
+        <textarea id="dor-cliente" placeholder="Pense na dor emocional, não só na técnica…"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Qual é o desejo mais profundo desse cliente?</div>
+        <div class="q-hint">Além de "quero X produto" — o que eles realmente querem alcançar, sentir ou ser?</div>
+        <textarea id="desejo-cliente" placeholder="Ex: Querem ser vistos como modernos, querem paz de espírito, querem status…"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">O que faz esse cliente escolher você e não o concorrente?</div>
+        <textarea id="razao-escolha" style="min-height:70px" placeholder="Motivo real da compra…"></textarea>
+      </div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Experiência e percepção</div>
+
+      <div class="q-card">
+        <div class="q-label">Como você quer que o cliente se sinta ao ver sua marca pela primeira vez?</div>
+        <div class="chip-grid" id="chips-sensacao">
+          <div class="chip" data-group="sensacao" data-multi>Confiança</div>
+          <div class="chip" data-group="sensacao" data-multi>Curiosidade</div>
+          <div class="chip" data-group="sensacao" data-multi>Aspiração / desejo</div>
+          <div class="chip" data-group="sensacao" data-multi>Acolhimento / segurança</div>
+          <div class="chip" data-group="sensacao" data-multi>Sofisticação / exclusividade</div>
+          <div class="chip" data-group="sensacao" data-multi>Alegria / leveza</div>
+          <div class="chip" data-group="sensacao" data-multi>Credibilidade / seriedade</div>
+          <div class="chip" data-group="sensacao" data-multi>Proximidade / humanidade</div>
+          <div class="chip" data-group="sensacao" data-multi>Energia / movimento</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Existe um cliente ou projeto que representa o melhor do que você faz?</div>
+        <div class="q-hint">Não precisa citar nomes. Descreva o caso, o resultado, o que tornou especial.</div>
+        <textarea id="melhor-caso" placeholder="Descreva um caso de sucesso…"></textarea>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(2)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(4)">Próximo →</button>
+    </div>
+  </div>
+
+  <div class="step-section" id="step-4">
+    <div class="section-intro">
+      <div class="section-tag">Etapa 5 · Estética</div>
+      <h1 class="section-title">Como ela deve parecer?</h1>
+      <p class="section-desc">Direcionamentos visuais que guiam as decisões de design.</p>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Cores</div>
+
+      <div class="q-card">
+        <div class="q-label">Você já tem alguma cor associada à marca atualmente?</div>
+        <div class="chip-grid" id="chips-cor-atual">
+          <div class="chip" data-group="cor-atual">Não tenho / é novo</div>
+          <div class="chip" data-group="cor-atual">Sim, quero mantê-la</div>
+          <div class="chip" data-group="cor-atual">Sim, mas quero mudar</div>
+          <div class="chip" data-group="cor-atual">Sim, quero evoluir levemente</div>
+        </div>
+        <div style="margin-top:10px">
+          <input type="text" id="cor-atual-hex" placeholder="Se tiver, informe as cores atuais (nome, hex ou referência)…" />
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Que famílias de cor você sente afinidade para a nova marca?</div>
+        <div class="chip-grid" id="chips-cor-familia">
+          <div class="chip" data-group="cor-familia" data-multi>Terrosos / neutros</div>
+          <div class="chip" data-group="cor-familia" data-multi>Escuros / dramáticos</div>
+          <div class="chip" data-group="cor-familia" data-multi>Claros / clean</div>
+          <div class="chip" data-group="cor-familia" data-multi>Vibrantes / saturados</div>
+          <div class="chip" data-group="cor-familia" data-multi>Pastéis / suaves</div>
+          <div class="chip" data-group="cor-familia" data-multi>Preto e branco</div>
+          <div class="chip" data-group="cor-familia" data-multi>Metálicos / dourado / prata</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Existe alguma cor que sua marca NUNCA deve usar?</div>
+        <input type="text" id="cor-proibida" placeholder="Ex: vermelho forte, amarelo, laranja…" />
+      </div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Tipografia e forma</div>
+
+      <div class="q-card">
+        <div class="q-label">Que estilo tipográfico você prefere para a marca?</div>
+        <div class="chip-grid" id="chips-tipo">
+          <div class="chip" data-group="tipo">Serifado clássico (elegante, sólido)</div>
+          <div class="chip" data-group="tipo">Sem serifa moderno (limpo, atual)</div>
+          <div class="chip" data-group="tipo">Manuscrito / escrito à mão (pessoal, artesanal)</div>
+          <div class="chip" data-group="tipo">Display / expressivo (ousado, marcante)</div>
+          <div class="chip" data-group="tipo">Geométrico / técnico (preciso, inovador)</div>
+          <div class="chip" data-group="tipo">Não tenho preferência</div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Como você prefere as formas e o estilo visual geral?</div>
+        <div class="chip-grid" id="chips-forma">
+          <div class="chip" data-group="forma" data-multi>Geométrico / preciso</div>
+          <div class="chip" data-group="forma" data-multi>Orgânico / fluido</div>
+          <div class="chip" data-group="forma" data-multi>Minimalista / clean</div>
+          <div class="chip" data-group="forma" data-multi>Detalhado / ornamental</div>
+          <div class="chip" data-group="forma" data-multi>Assimétrico / dinâmico</div>
+          <div class="chip" data-group="forma" data-multi>Simétrico / equilibrado</div>
+          <div class="chip" data-group="forma" data-multi>Icônico / simbólico</div>
+          <div class="chip" data-group="forma" data-multi>Textural / artesanal</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Repertório visual</div>
+
+      <div class="q-card">
+        <div class="q-label">Se sua marca fosse um objeto do mundo físico, qual seria?</div>
+        <div class="q-hint">Ex: Um relógio de precisão suíço. Uma mesa de madeira maciça. Uma tela de linho em branco.</div>
+        <textarea id="objeto" style="min-height:70px" placeholder="Descreva o objeto e por que ele representa sua marca…"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Se sua marca fosse um ambiente / espaço, como seria?</div>
+        <div class="q-hint">Ex: Uma galeria de arte branca com pé-direito alto. Um ateliê em loft industrial. Uma cabana de madeira na floresta.</div>
+        <textarea id="ambiente" style="min-height:70px" placeholder="Descreva o espaço…"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Há algum elemento visual, símbolo, ícone ou imagem que remeta ao coração do seu negócio?</div>
+        <div class="q-hint">Pode ser abstrato — uma sensação, uma textura, um movimento.</div>
+        <textarea id="simbolo" style="min-height:70px" placeholder="Ex: Movimento de água, detalhe cirúrgico, arco arquitetônico, semente que germina…"></textarea>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(3)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(5)">Próximo →</button>
+    </div>
+  </div>
+
+  <div class="step-section" id="step-5">
+    <div class="section-intro">
+      <div class="section-tag">Etapa 6 · Referências</div>
+      <h1 class="section-title">O que te inspira?</h1>
+      <p class="section-desc">Referências não definem o resultado — elas afiam a comunicação entre você e o designer.</p>
+    </div>
+
+    <div class="tip-box">📌 Não precisa ser do seu setor. Pinterest, Instagram, sites, fotos, marcas que você admira — tudo vale.</div>
+
+    <div class="q-group">
+      <div class="q-group-label">Upload de imagens e arquivos</div>
+
+      <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
+        <div class="upload-icon">🖼</div>
+        <div class="upload-text">Clique para enviar ou arraste seus arquivos aqui</div>
+        <div class="upload-sub">PNG, JPG, PDF, SVG — até 20 MB por arquivo</div>
+      </div>
+      <input type="file" id="file-input" multiple accept="image/*,.pdf,.svg" onchange="handleFiles(this.files)" />
+      <div class="file-preview-grid" id="file-preview"></div>
+      <div id="file-docs"></div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Links e referências online</div>
+
+      <div class="q-card">
+        <div class="q-label">Links de referência (Behance, Pinterest, Instagram, sites)</div>
+        <div class="q-hint">Cole um link por linha.</div>
+        <textarea id="links-ref" placeholder="https://www.behance.net/...&#10;https://www.pinterest.com/...&#10;https://www.instagram.com/..."></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Links de marcas concorrentes ou do setor que você acha interessantes visualmente</div>
+        <textarea id="links-concorr" style="min-height:70px" placeholder="https://..."></textarea>
+      </div>
+    </div>
+
+    <div class="q-group">
+      <div class="q-group-label">Direcionamento final</div>
+
+      <div class="q-card">
+        <div class="q-label">O que une as referências que você enviou? Qual o fio condutor estético?</div>
+        <div class="q-hint">Mesmo que seja intuitivo — "todas são limpas", "todas usam muito branco", "todas têm peso".</div>
+        <textarea id="fio-condutor" placeholder="Descreva o padrão estético que você percebe nas suas referências…"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Há algo que você viu nas referências que NÃO quer ver na sua marca?</div>
+        <textarea id="nao-quero" style="min-height:70px" placeholder="Ex: Não quero o excesso de ícones, não quero gradientes, não quero parecer app de fintech…"></textarea>
+      </div>
+
+      <div class="q-card">
+        <div class="q-label">Informações adicionais ou contexto que o designer precisa saber</div>
+        <textarea id="extras" placeholder="Qualquer coisa relevante que não foi perguntada…"></textarea>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(4)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(6); buildSummary()">Ver resumo →</button>
+    </div>
+  </div>
+
+  <div class="step-section" id="step-6">
+    <div class="section-intro">
+      <div class="section-tag">Etapa 7 · Resumo</div>
+      <h1 class="section-title">Seu briefing completo</h1>
+      <p class="section-desc">Revise tudo, corrija o que precisar e então exporte.</p>
+    </div>
+
+    <div id="summary-output"></div>
+
+    <div class="export-banner">
+      <h3>Pronto para enviar.</h3>
+      <p>Exporte o briefing para compartilhar com o designer ou salvar para seus registros.</p>
+      <div class="export-btns">
+        <button class="btn-export btn-export-white" onclick="exportarTexto()">📄 Exportar como texto</button>
+        <button class="btn-export btn-export-outline" onclick="imprimirBriefing()">🖨 Imprimir / salvar PDF</button>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(5)">← Voltar e editar</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ─── STATE ────────────────────────────────────────────
+let currentStep = 0;
+const totalSteps = 7;
+const uploadedFiles = [];
+
+// ─── NAVIGATION ───────────────────────────────────────
+function goTo(step) {
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  document.querySelectorAll('.step-tab')[currentStep].classList.remove('active');
+  document.querySelectorAll('.step-tab')[currentStep].classList.add('done');
+
+  currentStep = step;
+  document.getElementById('step-' + currentStep).classList.add('active');
+
+  const tabs = document.querySelectorAll('.step-tab');
+  tabs.forEach((t, i) => {
+    if (i === step) { t.classList.add('active'); t.classList.remove('done'); }
+  });
+
+  document.getElementById('header-progress').textContent = 'Etapa ' + (step + 1) + ' de ' + totalSteps;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.querySelectorAll('.step-tab').forEach((tab, i) => {
+  tab.addEventListener('click', () => { goTo(i); if (i === 6) buildSummary(); });
+});
+
+// ─── CHIP LOGIC ───────────────────────────────────────
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const group = chip.dataset.group;
+    const isMulti = chip.hasAttribute('data-multi');
+    if (!isMulti) {
+      document.querySelectorAll('.chip[data-group="' + group + '"]').forEach(c => c.classList.remove('selected'));
+    }
+    chip.classList.toggle('selected');
+  });
+});
+
+function getChips(group) {
+  return Array.from(document.querySelectorAll('.chip[data-group="' + group + '"].selected'))
+    .map(c => c.textContent.trim()).join(', ');
+}
+
+// ─── FILE UPLOAD ──────────────────────────────────────
+const uploadArea = document.getElementById('upload-area');
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+uploadArea.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadArea.classList.remove('dragover');
+  handleFiles(e.dataTransfer.files);
+});
+
+function handleFiles(files) {
+  Array.from(files).forEach(file => {
+    uploadedFiles.push(file);
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const grid = document.getElementById('file-preview');
+        const div = document.createElement('div');
+        div.className = 'file-thumb';
+        div.innerHTML = '<img src="' + e.target.result + '" alt="' + file.name + '" /><div class="remove-btn" onclick="removeFile(this)">✕</div>';
+        grid.appendChild(div);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      const docs = document.getElementById('file-docs');
+      const div = document.createElement('div');
+      div.className = 'file-doc-item';
+      div.innerHTML = '<div class="file-doc-icon">📎</div><div class="file-doc-name">' + file.name + '</div><div class="file-doc-remove" onclick="this.parentElement.remove()">remover</div>';
+      docs.appendChild(div);
+    }
+  });
+}
+
+function removeFile(btn) { btn.parentElement.remove(); }
+
+// ─── POLAR LABELS ─────────────────────────────────────
+const polarLabels = {
+  'polar-trad': ['Tradicional', 'Inovadora'],
+  'polar-seria': ['Séria', 'Divertida'],
+  'polar-preco': ['Acessível', 'Premium'],
+  'polar-visual': ['Minimalista', 'Expressiva'],
+  'polar-escala': ['Local/regional', 'Global'],
+  'polar-emocao': ['Racional', 'Emocional']
+};
+
+function polarValue(id) {
+  const v = parseInt(document.getElementById(id).value);
+  const labels = polarLabels[id];
+  if (v < 30) return labels[0] + ' (forte)';
+  if (v < 45) return labels[0] + ' (moderada)';
+  if (v <= 55) return 'Equilibrada';
+  if (v < 70) return labels[1] + ' (moderada)';
+  return labels[1] + ' (forte)';
+}
+
+// ─── BUILD SUMMARY ────────────────────────────────────
+function buildSummary() {
+  const data = collectData();
+  let html = '';
+
+  const sections = [
+    { title: '1. Contexto', rows: [
+      ['Nome / marca', (data.nome || '') + (data.fantasia ? ' (' + data.fantasia + ')' : '')],
+      ['Segmento', data.segmento],
+      ['Tempo de existência', data.tempo],
+      ['Tamanho', data.tamanho],
+      ['Motivação do projeto', data.motivo],
+      ['Entregas esperadas', data.entrega],
+      ['Prazo', data.prazo + (data.prazObs ? ' — ' + data.prazObs : '')],
+    ]},
+    { title: '2. Negócio', rows: [
+      ['Essência / proposta', data.essencia],
+      ['Principal produto/serviço', data.principalProduto],
+      ['Processo/método', data.processo],
+      ['Concorrentes', data.concorrentes],
+      ['Diferenciais', data.diferencial],
+      ['Marcas admiradas', data.admira],
+      ['Canais de uso', data.canais],
+    ]},
+    { title: '3. Posicionamento', rows: [
+      ['Propósito', data.proposito],
+      ['Valores', data.valores],
+      ['Personalidade da marca', data.personaMarca],
+      ['Tom de comunicação', data.tom],
+      ['Eixo Tradição / Inovação', polarValue('polar-trad')],
+      ['Eixo Séria / Divertida', polarValue('polar-seria')],
+      ['Eixo Acessível / Premium', polarValue('polar-preco')],
+      ['Eixo Minimalista / Expressiva', polarValue('polar-visual')],
+      ['Eixo Local / Global', polarValue('polar-escala')],
+      ['Eixo Racional / Emocional', polarValue('polar-emocao')],
+      ['O que nunca deve parecer', data.nunca],
+    ]},
+    { title: '4. Público', rows: [
+      ['Cliente ideal', data.clienteIdeal],
+      ['Principal dor', data.dorCliente],
+      ['Desejo profundo', data.desejoCliente],
+      ['Razão da escolha', data.razaoEscolha],
+      ['Sensação esperada na primeira impressão', data.sensacao],
+      ['Melhor caso / projeto', data.melhorCaso],
+    ]},
+    { title: '5. Estética', rows: [
+      ['Cores atuais', data.corAtual + (data.corAtualHex ? ': ' + data.corAtualHex : '')],
+      ['Famílias de cor preferidas', data.corFamilia],
+      ['Cores proibidas', data.corProibida],
+      ['Estilo tipográfico', data.tipo],
+      ['Estilo de forma', data.forma],
+      ['Objeto que representa a marca', data.objeto],
+      ['Espaço/ambiente da marca', data.ambiente],
+      ['Símbolo/elemento visual', data.simbolo],
+    ]},
+    { title: '6. Referências', rows: [
+      ['Arquivos enviados', uploadedFiles.length > 0 ? uploadedFiles.length + ' arquivo(s)' : 'Nenhum arquivo'],
+      ['Links de referência', data.linksRef],
+      ['Links de concorrentes', data.linksConcorr],
+      ['Fio condutor estético', data.fioCondutor],
+      ['O que não quer ver', data.naoQuero],
+      ['Informações adicionais', data.extras],
+    ]},
+  ];
+
+  sections.forEach(sec => {
+    html += '<div class="summary-block"><h4>' + sec.title + '</h4>';
+    sec.rows.forEach(row => {
+      const val = row[1] || '<em style="color:var(--ink3)">—</em>';
+      html += '<div class="summary-row"><div class="summary-key">' + row[0] + '</div><div class="summary-val">' + val + '</div></div>';
+    });
+    html += '</div>';
+  });
+
+  document.getElementById('summary-output').innerHTML = html;
+}
+
+function collectData() {
+  return {
+    nome: v('nome'), fantasia: v('fantasia'), segmento: v('segmento'),
+    tempo: getChips('tempo'), tamanho: getChips('tamanho'),
+    motivo: getChips('motivo'), entrega: getChips('entrega'),
+    prazo: v('prazo'), prazObs: v('prazo-obs'),
+    essencia: v('essencia'), principalProduto: v('principal-produto'),
+    processo: v('processo'), concorrentes: v('concorrentes'),
+    diferencial: v('diferencial'), admira: v('admira'),
+    canais: getChips('canais'),
+    proposito: v('proposito'), valores: getChips('valores') + (v('valores-outros') ? ', ' + v('valores-outros') : ''),
+    personaMarca: v('persona-marca'), tom: getChips('tom'), nunca: v('nunca'),
+    clienteIdeal: v('cliente-ideal'), dorCliente: v('dor-cliente'),
+    desejoCliente: v('desejo-cliente'), razaoEscolha: v('razao-escolha'),
+    sensacao: getChips('sensacao'), melhorCaso: v('melhor-caso'),
+    corAtual: getChips('cor-atual'), corAtualHex: v('cor-atual-hex'),
+    corFamilia: getChips('cor-familia'), corProibida: v('cor-proibida'),
+    tipo: getChips('tipo'), forma: getChips('forma'),
+    objeto: v('objeto'), ambiente: v('ambiente'), simbolo: v('simbolo'),
+    linksRef: v('links-ref'), linksConcorr: v('links-concorr'),
+    fioCondutor: v('fio-condutor'), naoQuero: v('nao-quero'), extras: v('extras'),
+  };
+}
+
+function v(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+// ─── EXPORT ───────────────────────────────────────────
+function exportarTexto() {
+  const data = collectData();
+  let txt = 'BRIEFING DE IDENTIDADE VISUAL\n';
+  txt += '================================\n';
+  txt += 'Gerado em: ' + new Date().toLocaleDateString('pt-BR') + '\n\n';
+
+  txt += '1. CONTEXTO\n─────────────────────────────\n';
+  txt += 'Nome/marca: ' + (data.nome || '-') + (data.fantasia ? ' (' + data.fantasia + ')' : '') + '\n';
+  txt += 'Segmento: ' + (data.segmento || '-') + '\n';
+  txt += 'Tempo de existência: ' + (data.tempo || '-') + '\n';
+  txt += 'Tamanho: ' + (data.tamanho || '-') + '\n';
+  txt += 'Motivação: ' + (data.motivo || '-') + '\n';
+  txt += 'Entregas: ' + (data.entrega || '-') + '\n';
+  txt += 'Prazo: ' + (data.prazo || '-') + '\n\n';
+
+  txt += '2. NEGÓCIO\n─────────────────────────────\n';
+  txt += 'Essência: ' + (data.essencia || '-') + '\n';
+  txt += 'Principal produto: ' + (data.principalProduto || '-') + '\n';
+  txt += 'Processo/método: ' + (data.processo || '-') + '\n';
+  txt += 'Concorrentes: ' + (data.concorrentes || '-') + '\n';
+  txt += 'Diferenciais: ' + (data.diferencial || '-') + '\n';
+  txt += 'Marcas admiradas: ' + (data.admira || '-') + '\n';
+  txt += 'Canais: ' + (data.canais || '-') + '\n\n';
+
+  txt += '3. POSICIONAMENTO\n─────────────────────────────\n';
+  txt += 'Propósito: ' + (data.proposito || '-') + '\n';
+  txt += 'Valores: ' + (data.valores || '-') + '\n';
+  txt += 'Personalidade: ' + (data.personaMarca || '-') + '\n';
+  txt += 'Tom: ' + (data.tom || '-') + '\n';
+  txt += 'Eixos: Tradição/Inovação=' + polarValue('polar-trad') + ' | Séria/Divertida=' + polarValue('polar-seria') + ' | Acessível/Premium=' + polarValue('polar-preco') + '\n';
+  txt += '       Minimalista/Expressiva=' + polarValue('polar-visual') + ' | Local/Global=' + polarValue('polar-escala') + ' | Racional/Emocional=' + polarValue('polar-emocao') + '\n';
+  txt += 'Nunca deve parecer: ' + (data.nunca || '-') + '\n\n';
+
+  txt += '4. PÚBLICO\n─────────────────────────────\n';
+  txt += 'Cliente ideal: ' + (data.clienteIdeal || '-') + '\n';
+  txt += 'Dor principal: ' + (data.dorCliente || '-') + '\n';
+  txt += 'Desejo profundo: ' + (data.desejoCliente || '-') + '\n';
+  txt += 'Razão da escolha: ' + (data.razaoEscolha || '-') + '\n';
+  txt += 'Sensação esperada: ' + (data.sensacao || '-') + '\n\n';
+
+  txt += '5. ESTÉTICA\n─────────────────────────────\n';
+  txt += 'Cores atuais: ' + (data.corAtual || '-') + (data.corAtualHex ? ': ' + data.corAtualHex : '') + '\n';
+  txt += 'Famílias preferidas: ' + (data.corFamilia || '-') + '\n';
+  txt += 'Cores proibidas: ' + (data.corProibida || '-') + '\n';
+  txt += 'Tipografia: ' + (data.tipo || '-') + '\n';
+  txt += 'Forma/estilo: ' + (data.forma || '-') + '\n';
+  txt += 'Objeto símbolo: ' + (data.objeto || '-') + '\n';
+  txt += 'Ambiente/espaço: ' + (data.ambiente || '-') + '\n';
+  txt += 'Elemento visual: ' + (data.simbolo || '-') + '\n\n';
+
+  txt += '6. REFERÊNCIAS\n─────────────────────────────\n';
+  txt += 'Arquivos: ' + (uploadedFiles.length > 0 ? uploadedFiles.length + ' arquivo(s)' : 'Nenhum') + '\n';
+  txt += 'Links ref: ' + (data.linksRef || '-') + '\n';
+  txt += 'Links concorrentes: ' + (data.linksConcorr || '-') + '\n';
+  txt += 'Fio condutor: ' + (data.fioCondutor || '-') + '\n';
+  txt += 'Não quer ver: ' + (data.naoQuero || '-') + '\n';
+  txt += 'Extras: ' + (data.extras || '-') + '\n';
+
+  const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'briefing-' + (data.nome || 'identidade').replace(/\s/g, '-').toLowerCase() + '.txt';
+  a.click();
+}
+
+function imprimirBriefing() { window.print(); }
+</script>
+
+</body>
+</html>
